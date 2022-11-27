@@ -1,0 +1,12 @@
+package com.example.cryptoapp.domain
+
+data class CoinInfo(
+    val price: String?,
+    val highDay: String?,
+    val lowDay: String?,
+    val lastUpdate: Long?,
+    val fromSymbol: String,
+    val toSymbol: String?,
+    val imageUrl: String?,
+    val lastMarket: String?
+)
