@@ -35,12 +35,14 @@ class CoinRepositoryImpl(
 
     override suspend fun loadData() {
         while (true) {
-            val topCoins = apiService.getTopCoinsInfo(limit = 50)
-            val fromSymbol = mapper.mapNamesListToString(topCoins)
-            val jsonContainer = apiService.getFullPriceList(fSyms = fromSymbol)
-            val infoDtoList = mapper.mapJsonContainerToListCoinInfo(jsonContainer)
-            val dbModelList = infoDtoList.map { mapper.mapDtoToDbModel(it) }
-            coinInfoDao.insertPriceList(dbModelList)
+            kotlin.runCatching {
+                val topCoins = apiService.getTopCoinsInfo(limit = 50)
+                val fromSymbol = mapper.mapNamesListToString(topCoins)
+                val jsonContainer = apiService.getFullPriceList(fSyms = fromSymbol)
+                val infoDtoList = mapper.mapJsonContainerToListCoinInfo(jsonContainer)
+                val dbModelList = infoDtoList.map { mapper.mapDtoToDbModel(it) }
+                coinInfoDao.insertPriceList(dbModelList)
+            }.getOrNull()
             delay(10000)
         }
     }
