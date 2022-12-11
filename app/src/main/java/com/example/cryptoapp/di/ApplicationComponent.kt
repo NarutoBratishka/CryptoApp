@@ -1,6 +1,7 @@
 package com.example.cryptoapp.di
 
 import android.app.Application
+import com.example.cryptoapp.CryptoApp
 import com.example.cryptoapp.presentation.CoinDetailActivity
 import com.example.cryptoapp.presentation.CoinDetailFragment
 import com.example.cryptoapp.presentation.CoinPriceListActivity
@@ -10,6 +11,8 @@ import javax.inject.Singleton
 
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
+
+    fun inject(application: CryptoApp)
 
     fun inject(activity: CoinPriceListActivity)
 
