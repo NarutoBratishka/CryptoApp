@@ -16,14 +16,17 @@ import javax.inject.Inject
 interface DataModule {
 
     @Binds
+    @ApplicationScope
     fun bindCoinRepository(impl: CoinRepositoryImpl): CoinRepository
 
     companion object {
+        @ApplicationScope
         @Provides
         fun provideCoinInfoDao(application: Application): CoinInfoDao {
             return AppDatabase.getInstance(application).coinInfoDao()
         }
 
+        @ApplicationScope
         @Provides
         fun provideApiService(): ApiService {
             return ApiFactory.apiService
